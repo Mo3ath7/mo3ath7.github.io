@@ -119,3 +119,15 @@ window.addEventListener("load", () => {
         }, 600);
     }
 });
+// ===== NAVBAR SCROLL EFFECT =====
+
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+    if (!navbar) return;
+
+    navbar.classList.toggle(
+        "navbar-scrolled",
+        window.scrollY > 50
+    );
+});
