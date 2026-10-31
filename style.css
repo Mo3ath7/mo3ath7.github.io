@@ -1226,3 +1226,43 @@ h1, h2 {
         margin-top: 25px;
     }
 }
+/* MO3ATH ANIMATED BACKGROUND */
+
+body {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(63, 185, 80, 0.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(0, 255, 120, 0.09),
+            transparent 35%
+        ),
+        #050806;
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+        circle,
+        rgba(63, 185, 80, 0.07),
+        transparent 45%
+    );
+    animation: moathGlow 12s ease-in-out infinite alternate;
+}
+
+@keyframes moathGlow {
+    from {
+        transform: translate(-8%, -5%) scale(1);
+    }
+    to {
+        transform: translate(8%, 5%) scale(1.2);
+    }
+}
