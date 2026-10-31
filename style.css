@@ -1266,3 +1266,51 @@ body::before {
         transform: translate(8%, 5%) scale(1.2);
     }
 }
+/* MO3ATH NAVBAR UPGRADE */
+
+.navbar {
+    position: sticky;
+    top: 12px;
+    z-index: 1000;
+    background: rgba(5, 10, 7, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(63, 185, 80, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.navbar:hover {
+    border-color: rgba(63, 185, 80, 0.5);
+}
+
+.nav-links a {
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #3fb950;
+    text-shadow: 0 0 12px rgba(63, 185, 80, 0.6);
+}
+
+/* LOGO UPGRADE */
+
+.logo-icon {
+    border: 1px solid rgba(63, 185, 80, 0.7);
+    box-shadow: 0 0 18px rgba(63, 185, 80, 0.3);
+    transition: 0.3s ease;
+}
+
+.logo-area:hover .logo-icon {
+    transform: rotate(-8deg) scale(1.1);
+    box-shadow: 0 0 28px rgba(63, 185, 80, 0.7);
+}
+
+.logo-text {
+    transition: 0.3s ease;
+}
+
+.logo-area:hover .logo-text {
+    color: #3fb950;
+}
