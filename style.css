@@ -1409,3 +1409,37 @@ body::before {
     border-color: rgba(63, 185, 80, .5);
     box-shadow: 0 8px 35px rgba(63, 185, 80, .12);
 }
+/* MO3ATH DRAWING ANIMATION */
+
+.logo-draw {
+    width: 32px;
+    height: 32px;
+    overflow: visible;
+}
+
+.logo-draw path {
+    fill: none;
+    stroke: #3fb950;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawMo3ath 2s ease forwards;
+}
+
+.hero-logo-draw {
+    width: 150px;
+    height: 150px;
+}
+
+.hero-logo-draw path {
+    stroke-width: 2;
+    animation-delay: .5s;
+}
+
+@keyframes drawMo3ath {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
