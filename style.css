@@ -1338,3 +1338,60 @@ body::before {
     transform: rotate(-8deg) scale(1.12);
     box-shadow: 0 0 30px rgba(63,185,80,.7);
 }
+/* MO3ATH NAVBAR PREMIUM */
+
+.navbar {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+    margin: 12px auto 0;
+    padding: 15px 25px;
+    border: 1px solid rgba(63,185,80,.25);
+    border-radius: 18px;
+    background: rgba(7, 12, 9, .88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 30px rgba(0,0,0,.3);
+}
+
+.nav-links a {
+    position: relative;
+    padding: 8px 0;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: #3fb950;
+    box-shadow: 0 0 10px #3fb950;
+    transition: width .3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-button {
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(63,185,80,.15);
+}
+
+@media(max-width:700px) {
+    .navbar {
+        width: calc(100% - 20px);
+        padding: 14px;
+        border-radius: 15px;
+    }
+
+    .nav-links {
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+}
