@@ -1158,40 +1158,34 @@ h1, h2 {
         font-size: 10px;
     }
     }
-/* MO3ATH HERO FIX */
+/* FINAL HERO FIX */
 
 .hero {
-    min-height: 600px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 40px;
-    padding: 70px 55px;
-    border: 1px solid rgba(63,185,80,.2);
-    border-radius: 28px;
-    background:
-        radial-gradient(circle at 85% 20%, rgba(63,185,80,.18), transparent 35%),
-        linear-gradient(135deg,#101a16,#080b10);
-    overflow: hidden;
+    gap: 25px;
+    min-height: 600px;
+    padding: 45px 30px;
 }
 
 .hero-content {
-    max-width: 600px;
-    position: relative;
-    z-index: 2;
+    flex: 1;
+    min-width: 0;
 }
 
 .hero-visual {
     position: relative;
-    width: 320px;
-    height: 320px;
-    flex-shrink: 0;
+    flex: 0 0 260px;
+    width: 260px;
+    height: 260px;
     display: grid;
     place-items: center;
 }
 
 .hero-symbol {
-    font-size: 180px;
+    font-size: 150px;
     font-weight: 900;
     color: #3fb950;
     text-shadow: 0 0 55px rgba(63,185,80,.5);
@@ -1201,51 +1195,34 @@ h1, h2 {
 .hero-orbit {
     position: absolute;
     inset: 0;
-    border: 1px solid rgba(63,185,80,.35);
+    border: 1px solid rgba(63,185,80,.4);
     border-radius: 50%;
     animation: moathSpin 12s linear infinite;
 }
 
 .hero-code {
     position: absolute;
-    bottom: -15px;
-    right: -35px;
-    padding: 18px;
+    bottom: -20px;
+    right: -10px;
+    padding: 12px;
     border: 1px solid rgba(63,185,80,.3);
     border-radius: 12px;
     background: #090e0c;
     color: #e4eee7;
-    font-family: monospace;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.8;
+    z-index: 3;
 }
 
-.code-green { color: #3fb950; }
-.code-yellow { color: #e5c07b; }
-
-@keyframes moathFloat {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-@keyframes moathSpin {
-    to { transform: rotate(360deg); }
-}
-
-@media(max-width:800px) {
+@media(max-width:700px) {
     .hero {
         flex-direction: column;
         align-items: flex-start;
-        padding: 40px 22px;
+        padding: 35px 20px;
     }
 
     .hero-visual {
         align-self: center;
-        width: 240px;
-        height: 240px;
-        margin-top: 30px;
+        margin-top: 25px;
     }
-
-    .hero-symbol { font-size: 135px; }
-    .hero-code { right: -10px; font-size: 10px; }
 }
