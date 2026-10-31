@@ -1548,3 +1548,33 @@ body::before {
         height: 150px;
     }
 }
+/* PROFESSIONAL MO3ATH LOGO */
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: linear-gradient(145deg, #102b19, #07140c);
+    border: 1px solid #3fb950;
+    border-radius: 14px;
+    box-shadow: 0 0 18px rgba(63, 185, 80, 0.25);
+}
+
+.logo-draw {
+    width: 40px;
+    height: 40px;
+}
+
+.logo-draw path {
+    fill: none;
+    stroke: #55ff78;
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 5px rgba(85, 255, 120, 0.7));
+    animation: none;
+}
