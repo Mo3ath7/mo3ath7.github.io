@@ -244,11 +244,12 @@ window.addEventListener("scroll", () => {
         );
 
         const particleMaterial = new THREE.PointsMaterial({
-            color: 0x39ff14,
-            size: 0.035,
-            transparent: true,
-            opacity: 0.9
-        });
+    color: 0x39ff14,
+    size: 0.09,
+    transparent: true,
+    opacity: 1,
+    sizeAttenuation: true
+});
 
         const particles = new THREE.Points(
             particleGeometry,
