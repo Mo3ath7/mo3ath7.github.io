@@ -1443,3 +1443,38 @@ body::before {
         stroke-dashoffset: 0;
     }
 }
+/* FIX MO3ATH LOGOS */
+
+.hero-symbol {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
+    font-size: initial;
+    color: #3fb950;
+}
+
+.hero-logo-draw {
+    display: block;
+    width: 180px;
+    height: 180px;
+    overflow: visible;
+}
+
+.hero-logo-draw path {
+    fill: none;
+    stroke: #3fb950;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawMo3ath 2s ease forwards;
+}
+
+@keyframes drawMo3ath {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
