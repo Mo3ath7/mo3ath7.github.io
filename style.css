@@ -1478,3 +1478,73 @@ body::before {
         stroke-dashoffset: 0;
     }
 }
+/* ===== MO3ATH FINAL LOGO DESIGN ===== */
+
+/* Navbar and Footer Logo */
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(63, 185, 80, 0.08);
+    border: 1px solid rgba(63, 185, 80, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(63, 185, 80, 0.15);
+}
+
+.logo-draw {
+    width: 32px;
+    height: 32px;
+    overflow: visible;
+}
+
+.logo-draw path {
+    fill: none;
+    stroke: #3fb950;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawMo3ath 2s ease forwards;
+}
+
+/* Main Hero Logo */
+.hero-symbol {
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: moathFloat 4s ease-in-out infinite;
+}
+
+.hero-logo-draw {
+    width: 180px;
+    height: 180px;
+}
+
+.hero-logo-draw path {
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 12px rgba(63, 185, 80, 0.7));
+}
+
+@keyframes drawMo3ath {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .hero-symbol {
+        width: 180px;
+        height: 180px;
+    }
+
+    .hero-logo-draw {
+        width: 150px;
+        height: 150px;
+    }
+}
