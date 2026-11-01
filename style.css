@@ -1640,3 +1640,122 @@ body::before {
         transform: translate(-50%, -50%) scale(1.15);
     }
 }
+/* M03 AI Widget */
+#m03Widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 99999;
+    font-family: inherit;
+}
+
+#m03Widget .m03-launcher {
+    border: 1px solid #39ff14;
+    background: #080d0a;
+    color: #caffd2;
+    padding: 13px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 0 18px #39ff1455;
+}
+
+#m03Widget .m03-panel {
+    display: none;
+    position: absolute;
+    bottom: 65px;
+    right: 0;
+    width: 320px;
+    height: 430px;
+    background: #080d0e;
+    border: 1px solid #39ff1480;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 0 30px #39ff1425;
+    color: white;
+}
+
+#m03Widget .m03-header {
+    padding: 16px;
+    background: #0d1710;
+    border-bottom: 1px solid #39ff1433;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #39ff14;
+    font-weight: bold;
+}
+
+#m03Widget .m03-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#m03Widget .m03-messages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+#m03Widget .m03-msg {
+    padding: 10px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    max-width: 85%;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+#m03Widget .m03-user {
+    background: #17351c;
+    margin-left: auto;
+}
+
+#m03Widget .m03-bot {
+    background: #151c19;
+    border: 1px solid #39ff1430;
+}
+
+#m03Widget .m03-form {
+    display: flex;
+    gap: 7px;
+    padding: 10px;
+    border-top: 1px solid #39ff1433;
+}
+
+#m03Widget .m03-input {
+    min-width: 0;
+    flex: 1;
+    background: #111916;
+    border: 1px solid #29452e;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    outline: none;
+}
+
+#m03Widget .m03-send {
+    background: #39ff14;
+    color: #061006;
+    border: none;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    #m03Widget {
+        right: 14px;
+        bottom: 14px;
+    }
+
+    #m03Widget .m03-panel {
+        width: min(320px, calc(100vw - 28px));
+    }
+}
