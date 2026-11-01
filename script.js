@@ -230,11 +230,11 @@ window.addEventListener("scroll", () => {
 
         for (let i = 0; i < particleCount; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const radius = 1.6 + Math.random() * 1.1;
+            const radius = 1.35 + Math.random() * 0.35;
 
             positions[i * 3] = Math.cos(angle) * radius;
             positions[i * 3 + 1] = Math.sin(angle) * radius;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 0.5;
         }
 
         const particleGeometry = new THREE.BufferGeometry();
