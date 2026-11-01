@@ -1600,3 +1600,43 @@ body::before {
         height: 200px;
     }
 }
+/* ===== MO3ATH 3D LOGO GLOW ===== */
+
+.moath-new-logo {
+    position: relative;
+    isolation: isolate;
+}
+
+.moath-new-logo::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #39ff14;
+    border-radius: 50%;
+    filter: blur(65px);
+    opacity: 0.28;
+    z-index: 0;
+    animation: moathGlow 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.moath-new-logo canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+}
+
+@keyframes moathGlow {
+    0%, 100% {
+        opacity: 0.18;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    50% {
+        opacity: 0.42;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
