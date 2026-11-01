@@ -333,3 +333,88 @@ particleGeometry.attributes.position.needsUpdate = true;
         console.error("3D logo failed to load:", error);
     }
 })();
+// M03 AI Floating Chat Widget
+(() => {
+    const widget = document.getElementById("m03Widget");
+    if (!widget) return;
+
+    widget.innerHTML = `
+        <button class="m03-launcher" id="m03Open">✦ M03 AI</button>
+
+        <div class="m03-panel" id="m03Panel">
+            <div class="m03-header">
+                <span>✦ M03 AI</span>
+                <button class="m03-close" id="m03Close">×</button>
+            </div>
+
+            <div class="m03-messages" id="m03Messages">
+                <div class="m03-msg m03-bot">
+                    Hey! I'm M03 AI. How can I help you?
+                </div>
+            </div>
+
+            <form class="m03-form" id="m03Form">
+                <input class="m03-input" id="m03Input"
+                    placeholder="Ask me anything..." autocomplete="off">
+                <button class="m03-send" type="submit">➤</button>
+            </form>
+        </div>
+    `;
+
+    const panel = document.getElementById("m03Panel");
+    const messages = document.getElementById("m03Messages");
+    const input = document.getElementById("m03Input");
+
+    document.getElementById("m03Open").onclick = () => {
+        panel.style.display = "block";
+    };
+
+    document.getElementById("m03Close").onclick = () => {
+        panel.style.display = "none";
+    };
+
+    function addMessage(text, type) {
+        const message = document.createElement("div");
+        message.className = `m03-msg m03-${type}`;
+        message.textContent = text;
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+        return message;
+    }
+
+    document.getElementById("m03Form").onsubmit = async (event) => {
+        event.preventDefault();
+
+        const prompt = input.value.trim();
+        if (!prompt) return;
+
+        addMessage(prompt, "user");
+        input.value = "";
+
+        const loading = addMessage("Thinking...", "bot");
+
+        try {
+            const response = await fetch(
+                "https://m03-ai.moathjazar8.workers.dev/",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message: prompt })
+                }
+            );
+
+            if (!response.ok) throw new Error("Connection failed");
+
+            const data = await response.json();
+            loading.textContent = data.reply || "No response received.";
+
+        } catch (error) {
+            loading.textContent = "Connection error. Please try again.";
+            console.error("M03 AI:", error);
+        }
+
+        messages.scrollTop = messages.scrollHeight;
+    };
+})();
