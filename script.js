@@ -224,20 +224,34 @@ window.addEventListener("scroll", () => {
         whiteLight.position.set(-2, -1, 2);
         scene.add(whiteLight);
 
-        // Floating particles - tight circular ring
-const particleCount = 130;
+        // Floating particles - random magical effect
+const particleCount = 180;
 const positions = new Float32Array(particleCount * 3);
+const opacities = new Float32Array(particleCount);
+
+const particleData = [];
 
 for (let i = 0; i < particleCount; i++) {
-    const angle = (i / particleCount) * Math.PI * 2;
-    const radius = 1.55 + (Math.random() - 0.5) * 0.08;
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 1.25 + Math.random() * 0.65;
 
     positions[i * 3] = Math.cos(angle) * radius;
     positions[i * 3 + 1] = Math.sin(angle) * radius;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 0.12;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 0.7;
+
+    opacities[i] = Math.random();
+
+    particleData.push({
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.7 + Math.random() * 1.5,
+        radius,
+        angle,
+        size: 0.5 + Math.random() * 0.5
+    });
 }
 
 const particleGeometry = new THREE.BufferGeometry();
+
 particleGeometry.setAttribute(
     "position",
     new THREE.BufferAttribute(positions, 3)
@@ -245,9 +259,10 @@ particleGeometry.setAttribute(
 
 const particleMaterial = new THREE.PointsMaterial({
     color: 0x39ff14,
-    size: 0.07,
+    size: 0.065,
     transparent: true,
-    opacity: 1
+    opacity: 1,
+    depthWrite: false
 });
 
 const particles = new THREE.Points(
@@ -273,6 +288,26 @@ scene.add(particles);
                 logo.rotation.y = Math.sin(Date.now() * 0.0007) * 0.22;
                 logo.rotation.x = Math.sin(Date.now() * 0.0005) * 0.08;
                 particles.rotation.z += 0.0015;
+                const time = Date.now() * 0.001;
+const opacityArray = particleGeometry.attributes.position;
+
+particleData.forEach((p, i) => {
+    const visibility = Math.max(
+        0,
+        Math.sin(time * p.speed + p.phase)
+    );
+
+    positions[i * 3] = Math.cos(p.angle) * p.radius;
+    positions[i * 3 + 1] = Math.sin(p.angle) * p.radius;
+    positions[i * 3 + 2] =
+        Math.sin(time + p.phase) * 0.35;
+
+    particleData[i].angle += 0.001 * p.speed;
+});
+
+opacityArray.needsUpdate = true;
+particleMaterial.opacity = 0.35 + Math.abs(Math.sin(time * 1.5)) * 0.65;
+particleGeometry.attributes.position.needsUpdate = true;
             }
 
             renderer.render(scene, camera);
