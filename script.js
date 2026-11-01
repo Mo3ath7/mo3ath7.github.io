@@ -195,12 +195,12 @@ window.addEventListener("scroll", () => {
         geometry.center();
 
         const material = new THREE.MeshStandardMaterial({
-            color: 0x39ff14,
-            metalness: 0.8,
-            roughness: 0.2,
-            emissive: 0x087a00,
-            emissiveIntensity: 0.6
-        });
+    color: 0x39ff14,
+    metalness: 0.95,
+    roughness: 0.12,
+    emissive: 0x39ff14,
+    emissiveIntensity: 1.2
+});
 
         const logo = new THREE.Mesh(geometry, material);
         scene.add(logo);
