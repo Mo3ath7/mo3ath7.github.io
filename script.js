@@ -224,39 +224,38 @@ window.addEventListener("scroll", () => {
         whiteLight.position.set(-2, -1, 2);
         scene.add(whiteLight);
 
-        // Floating particles
-        const particleCount = 130;
-        const positions = new Float32Array(particleCount * 3);
+        // Floating particles - tight circular ring
+const particleCount = 130;
+const positions = new Float32Array(particleCount * 3);
 
-        for (let i = 0; i < particleCount; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 1.35 + Math.random() * 0.35;
+for (let i = 0; i < particleCount; i++) {
+    const angle = (i / particleCount) * Math.PI * 2;
+    const radius = 1.55 + (Math.random() - 0.5) * 0.08;
 
-            positions[i * 3] = Math.cos(angle) * radius;
-            positions[i * 3 + 1] = Math.sin(angle) * radius;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 0.5;
-        }
+    positions[i * 3] = Math.cos(angle) * radius;
+    positions[i * 3 + 1] = Math.sin(angle) * radius;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 0.12;
+}
 
-        const particleGeometry = new THREE.BufferGeometry();
-        particleGeometry.setAttribute(
-            "position",
-            new THREE.BufferAttribute(positions, 3)
-        );
+const particleGeometry = new THREE.BufferGeometry();
+particleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(positions, 3)
+);
 
-        const particleMaterial = new THREE.PointsMaterial({
+const particleMaterial = new THREE.PointsMaterial({
     color: 0x39ff14,
-    size: 0.09,
+    size: 0.07,
     transparent: true,
-    opacity: 1,
-    sizeAttenuation: true
+    opacity: 1
 });
 
-        const particles = new THREE.Points(
-            particleGeometry,
-            particleMaterial
-        );
+const particles = new THREE.Points(
+    particleGeometry,
+    particleMaterial
+);
 
-        scene.add(particles);
+scene.add(particles);
 
         // Hide old 2D logo after successful setup
         const oldLogo = container.querySelector(".logo-art");
