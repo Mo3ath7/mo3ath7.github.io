@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MINDX — تحدّى عقلك</title>
+<style>
+:root{--ink:#18223d;--muted:#77819a;--line:#e8eaf2;--purple:#7064d8;--pale:#f0eeff;--bg:#f7f8fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif}
+.wrap{max-width:1000px;margin:auto;padding:25px 18px 55px}header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:35px}
+.brand{display:flex;align-items:center;gap:11px}.logo{background:var(--ink);color:white;border-radius:13px;padding:12px 15px;font-weight:bold}.brand b{font-size:22px;letter-spacing:2px}.brand small{display:block;color:var(--muted);margin-top:4px}
+.stats{display:flex;gap:9px}.stat{background:white;border:1px solid var(--line);border-radius:12px;padding:9px 13px}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{display:block;margin-top:5px}
+.view{display:none}.view.active{display:block}.hero{text-align:center;padding:35px 0}.eyebrow{color:var(--purple);font-size:12px;font-weight:bold}.hero h1{font-size:clamp(35px,7vw,58px);margin:14px 0}.hero p{color:var(--muted);line-height:2;max-width:560px;margin:0 auto 22px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 18px;font-weight:bold}.primary{background:var(--ink);color:white}.secondary{background:white;border:1px solid var(--line);color:var(--ink)}button:disabled{opacity:.4;cursor:not-allowed}
+.head{display:flex;justify-content:space-between;align-items:center;margin:20px 0 14px}.head span{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}.stage{background:white;border:1px solid var(--line);text-align:right;min-height:95px;padding:15px;position:relative}.stage small{color:var(--muted)}.stage b{display:block;margin-top:12px}.check{position:absolute;left:12px;top:12px;color:#168765}
+.gamehead{display:flex;justify-content:space-between;margin-bottom:15px}.back{background:none;color:var(--muted);padding-right:0}.tag{display:inline-block;background:var(--pale);color:var(--purple);padding:7px 11px;border-radius:9px;font-size:12px;font-weight:bold}
+.bar{height:7px;background:#e6e8f0;border-radius:9px;overflow:hidden;margin-bottom:25px}.bar div{height:100%;background:var(--purple)}
+.panel{max-width:720px;margin:auto;background:white;border:1px solid var(--line);border-radius:22px;padding:clamp(22px,5vw,40px)}
+h2{font-size:clamp(23px,4vw,32px);margin:18px 0 12px}.question{white-space:pre-line;color:#505b75;line-height:2;font-size:17px}
+.entry{display:flex;gap:9px;margin-top:24px}.entry input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:13px;font:inherit;outline:none}.entry input:focus{border-color:var(--purple)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.hint{display:none;background:#f4f2ff;color:#554ba8;padding:13px;border-radius:12px;margin-top:15px;line-height:1.8}.feedback{min-height:25px;margin-top:15px;font-weight:bold}.good{color:#168765}.bad{color:#c45164}
+.finish{text-align:center;padding:55px 10px}.finish h1{font-size:36px}.finish p{color:var(--muted);line-height:2}
+@media(max-width:700px){header{align-items:flex-start;flex-direction:column}.stats{width:100%}.stat{flex:1}.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:420px){.grid{grid-template-columns:repeat(2,1fr)}.entry{flex-direction:column}.wrap{padding:18px 13px}}
+</style></head>
+<body><main class="wrap">
+<header><div class="brand"><div class="logo">M</div><div><b>MINDX</b><small>فكّر بطريقة مختلفة</small></div></div>
+<div class="stats"><div class="stat"><small>نقاطك</small><b id="score">0</b></div><div class="stat"><small>أفضل نتيجة</small><b id="best">0</b></div><div class="stat"><small>المراحل</small><b id="solved">0 / 20</b></div></div></header>
+<section id="home" class="view active"><div class="hero"><div class="eyebrow">تحدّي التفكير يبدأ من هنا</div><h1>مش كل جواب واضح<br>من أول نظرة.</h1><p>20 مرحلة من الألغاز والتحديات. ركّز، جرّب، واكتشف إن عقلك بقدر يشوف أبعد من المعتاد.</p><button class="primary" onclick="startNext()">ابدأ التحدّي ←</button></div><div class="head"><b>خريطة المراحل</b><span>افتح المراحل بالتدريج</span></div><div id="grid" class="grid"></div></section>
+<section id="game" class="view"><div class="gamehead"><button class="back" onclick="home()">← كل المراحل</button><span id="stage" class="tag"></span></div><div class="bar"><div id="bar"></div></div><div class="panel"><span id="cat" class="tag"></span><h2 id="title"></h2><div id="q" class="question"></div><div class="entry"><input id="answer" placeholder="اكتب إجابتك هون..." onkeydown="if(event.key==='Enter')check()"><button class="primary" onclick="check()">تحقّق</button></div><div class="actions"><button class="secondary" onclick="hint()">تلميح <span id="cost">(−20)</span></button><button class="secondary" onclick="reveal()">اكشف الإجابة</button></div><div id="hint" class="hint"></div><div id="feedback" class="feedback"></div><div id="next" style="display:none;margin-top:15px"><button class="primary" onclick="next()">المرحلة التالية ←</button></div></div></section>
+<section id="done" class="view finish"><div style="font-size:55px">🏆</div><div class="eyebrow">إنجاز رائع</div><h1>أكملت MINDX!</h1><p id="final"></p><button class="primary" onclick="home()">العودة للمراحل</button></section>
+</main>
+<script>
+const P=[
+["تسلسل","ما الرقم التالي؟","2، 4، 8، 16، ؟","32","كل رقم يساوي ضعف السابق.","الأرقام تتضاعف."],
+["منطق","سباق","إذا تجاوزت الشخص صاحب المركز الثاني في سباق، بأي مركز تصبح؟","الثاني","أنت أخذت مكانه، مش مكان الأول.","فكّر بمركز الشخص الذي تجاوزته."],
+["ملاحظة","أيام السنة","كم شهرًا في السنة يحتوي على 28 يومًا؟","12","السؤال ما حكى إن الشهر لازم ينتهي عند 28.","كل الشهور فيها يوم 28."],
+["رياضيات","التفاحات","معك 3 تفاحات، أخذتَ منها تفاحتين. كم تفاحة أصبحت معك؟","2","السؤال عن اللي أخذتهم إنت.","أصبحت معك التفاحتان."],
+["كلمات","لغز الحروف","شيء تراه في الليل ثلاث مرات وفي النهار مرة واحدة. ما هو؟","ل","ابحث عن حرف، مش عن شيء.","حرف اللام."],
+["منطق","العائلة","لدى أحمد 4 بنات، ولكل بنت أخ واحد. كم عدد أولاد أحمد؟","5","الأخ نفسه مشترك بين البنات.","أربع بنات وأخ واحد."],
+["تسلسل","نمط الأرقام","1، 1، 2، 3، 5، 8، ؟","13","كل رقم هو مجموع الرقمين السابقين.","8 + 5."],
+["تفكير جانبي","السمكات","في حوض 10 سمكات، ماتت سمكتان. كم سمكة بقيت في الحوض؟","10","الموت لا يعني أن السمكة خرجت من الحوض.","كلها ما زالت داخل الحوض."],
+["منطق","المفاتيح","لديك 3 مفاتيح، واحد فقط يفتح الباب. كم مفتاحًا تحتاج أن تجرّب في أسوأ احتمال؟","3","أسوأ احتمال يعني أن الصحيح هو الأخير.","قد تضطر لتجربة الثلاثة."],
+["رياضيات","نصف العدد","نصف عدد يساوي 50. ما العدد؟","100","ارجع بالعملية بالعكس.","50 × 2."],
+["ملاحظة","شيء يكبر","ما الشيء الذي كلما أخذت منه كبر؟","الحفرة","فكّر بشيء يكبر عندما تزيل منه.","الحفرة."],
+["كلمات","عكس الاتجاه","ما عكس كلمة (فوق)؟","تحت","إجابة مباشرة، انتبه للكلمة.","تحت."],
+["منطق","الصناديق","ثلاثة صناديق مكتوب عليها: تفاح، برتقال، مختلط. كل الملصقات خاطئة. من أي صندوق تسحب ثمرة واحدة لتعرف محتويات الصناديق؟","المختلط","ابدأ بالصندوق المكتوب عليه مختلط لأن ملصقه خاطئ.","اسحب من صندوق (مختلط)."],
+["تسلسل","نمط متقدم","3، 6، 11، 18، 27، ؟","38","الفروق تزيد بمقدار 2 كل مرة.","الفروق 3، 5، 7، 9، ثم 11."],
+["تفكير جانبي","المصعد","رجل يسكن في الطابق العاشر. يصعد بالمصعد إلى السابع ثم يكمل درجًا، إلا إذا كان معه شخص. لماذا؟","قصير","السبب متعلق بطوله، لا بعطل المصعد.","لا يصل إلى زر الطابق العاشر."],
+["رياضيات","ثلاثة أعداد","مجموع ثلاثة أعداد متتالية يساوي 36. ما العدد الأوسط؟","12","العدد الأوسط يبعد واحدًا عن كل طرف.","11 + 12 + 13."],
+["منطق","الحارسان","بابان: واحد للنجاة وآخر لطريق مسدود. حارسان؛ واحد يصدق دائمًا والآخر يكذب دائمًا. ما السؤال الذي تسأله لأي حارس لتعرف باب النجاة؟","اسأل أي باب سيقول الحارس الآخر إنه باب النجاة ثم اختر الثاني","اسأل عن إجابة الحارس الآخر، ثم اختر عكسها.","اسأله عن الباب الذي سيختاره الحارس الآخر، ثم اختر الباب المقابل."],
+["تسلسل","المربعات","1، 4، 9، 16، 25، ؟","36","هذه أعداد ناتجة عن ضرب العدد بنفسه.","6 × 6."],
+["تفكير جانبي","الشموع","أشعلت 5 شموع، ثم أطفأت 2. بعد وقت، كم شمعة ستبقى؟","2","فكّر بالشموع التي لم تذب بالكامل.","الشمعتان المطفأتان ستبقيان."],
+["تحدّي نهائي","لغز النهاية","أنا عدد من رقمين. مجموع رقميّ 9، وإذا عكست رقميّ أصبح العدد أكبر مني بـ27. ما أنا؟","36","فرق الرقمين 3 ومجموعهما 9.","36؛ وعكسه 63، والفرق 27."]
+];
+const $=x=>document.getElementById(x);let d=JSON.parse(localStorage.getItem("mindx")||'{"score":0,"best":0,"solved":[],"unlocked":1,"hints":{}}'),cur=0,done=false;
+function save(){d.best=Math.max(d.best,d.score);localStorage.setItem("mindx",JSON.stringify(d));stats()}
+function stats(){$("score").textContent=d.score;$("best").textContent=d.best;$("solved").textContent=d.solved.length+" / 20"}
+function view(id){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));$(id).classList.add("active")}
+function draw(){ $("grid").innerHTML="";P.forEach((p,i)=>{let b=document.createElement("button");b.className="stage";b.disabled=i+1>d.unlocked;b.innerHTML=`<small>المرحلة ${i+1}</small><b>${p[0]}</b>${d.solved.includes(i)?'<span class="check">✓</span>':''}`;b.onclick=()=>open(i);$("grid").append(b)})}
+function home(){draw();view("home")}
+function startNext(){let i=0;while(i<20&&d.solved.includes(i))i++;if(i===20){view("done");return}open(Math.min(i,d.unlocked-1))}
+function open(i){cur=i;done=d.solved.includes(i);let p=P[i];$("stage").textContent=`المرحلة ${i+1} من 20`;$("bar").style.width=((i+1)/20*100)+"%";$("cat").textContent=p[0];$("title").textContent=p[1];$("q").textContent=p[2];$("answer").value="";$("answer").disabled=done;$("hint").style.display="none";$("feedback").textContent=done?"أنهيت هذه المرحلة سابقًا.":"";$("feedback").className="feedback";$("next").style.display=done?"block":"none";$("cost").textContent="(−"+(d.hints[i]?30:20)+")";view("game")}
+function norm(s){return s.trim().toLowerCase().replace(/[ًٌٍَُِّْـ]/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/[؟،,.]/g,"").replace(/\s+/g,"")}
+function check(){if(done)return;let a=norm($("answer").value),correct=norm(P[cur][3]);if(a===correct||(cur===16&&a.includes("الحارس")&&a.includes("الاخر"))){finish(true)}else{$("feedback").textContent="مش هيك... جرّب مرة ثانية وركّز بالتفاصيل.";$("feedback").className="feedback bad"}}
+function finish(points){if(!done){done=true;if(!d.solved.includes(cur))d.solved.push(cur);d.unlocked=Math.max(d.unlocked,Math.min(20,cur+2));if(points)d.score+=100;save()}$("feedback").textContent=points?"إجابة صحيحة! +100 نقطة 🎉":"تم كشف الإجابة. بدون نقاط لهذه المرحلة.";$("feedback").className="feedback good";$("answer").disabled=true;$("next").style.display="block";$("hint").style.display="none";draw()}
+function hint(){if(done)return;let used=d.hints[cur]||0;if(used>=2){$("hint").textContent="استخدمت التلميحين المتاحين لهذه المرحلة.";$("hint").style.display="block";return}d.score=Math.max(0,d.score-(used===0?20:30));d.hints[cur]=used+1;save();$("cost").textContent=used===0?"(−30)":"(مكتمل)";$("hint").textContent=(used===0?"تلميح 1: ":"تلميح 2: ")+P[cur][4+used];$("hint").style.display="block"}
+function reveal(){if(done)return;$("hint").textContent="الإجابة: "+P[cur][3]+" — "+P[cur][5];$("hint").style.display="block";finish(false)}
+function next(){if(cur===19){$("final").textContent=`نتيجتك ${d.score} نقطة. أفضل نتيجة إلك ${d.best} نقطة.`;view("done")}else if(cur+1<d.unlocked)open(cur+1);else home()}
+stats();draw();
+</script></body></html>
