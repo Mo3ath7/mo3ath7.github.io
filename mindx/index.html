@@ -60,8 +60,107 @@ function draw(){ $("grid").innerHTML="";P.forEach((p,i)=>{let b=document.createE
 function home(){draw();view("home")}
 function startNext(){let i=0;while(i<20&&d.solved.includes(i))i++;if(i===20){view("done");return}open(Math.min(i,d.unlocked-1))}
 function open(i){cur=i;done=d.solved.includes(i);let p=P[i];$("stage").textContent=`المرحلة ${i+1} من 20`;$("bar").style.width=((i+1)/20*100)+"%";$("cat").textContent=p[0];$("title").textContent=p[1];$("q").textContent=p[2];$("answer").value="";$("answer").disabled=done;$("hint").style.display="none";$("feedback").textContent=done?"أنهيت هذه المرحلة سابقًا.":"";$("feedback").className="feedback";$("next").style.display=done?"block":"none";$("cost").textContent="(−"+(d.hints[i]?30:20)+")";view("game")}
-function norm(s){return s.trim().toLowerCase().replace(/[ًٌٍَُِّْـ]/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/[؟،,.]/g,"").replace(/\s+/g,"")}
-function check(){if(done)return;let a=norm($("answer").value),correct=norm(P[cur][3]);if(a===correct||(cur===16&&a.includes("الحارس")&&a.includes("الاخر"))){finish(true)}else{$("feedback").textContent="مش هيك... جرّب مرة ثانية وركّز بالتفاصيل.";$("feedback").className="feedback bad"}}
+
+function norm(s) {
+    return s.toLowerCase()
+        .trim()
+        .replace(/[ًٌٍَُِّْـ]/g, "")
+        .replace(/[أإآٱ]/g, "ا")
+        .replace(/ى/g, "ي")
+        .replace(/ة/g, "ه")
+        .replace(/ؤ/g, "و")
+        .replace(/ئ/g, "ي")
+        .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+        .replace(/[؟،,.!؛:ـ"'()]/g, "")
+        .replace(/\s+/g, "");
+}
+
+// إجابات بديلة مقبولة لكل مرحلة
+const ANSWERS = {
+    0: ["٣٢", "اثنان وثلاثون"],
+    1: ["المركز الثاني"],
+    2: ["كل الشهور", "جميع الشهور", "اثنا عشر", "12 شهر"],
+    3: ["تفاحتين", "تفاحتان", "اثنتين"],
+    4: ["حرف اللام", "اللام"],
+    5: ["خمسة", "خمس", "5", "اربعه بنات وولد"],
+    6: ["ثلاثة عشر", "13"],
+    7: ["عشر", "عشرة", "10 سمكات"],
+    8: ["ثلاثة", "3"],
+    9: ["مئة", "مائه", "100"],
+    10: ["حفرة"],
+    11: ["اسفل"],
+    12: ["صندوق المختلط", "صندوق مكتوب عليه مختلط"],
+    13: ["ثمانية وثلاثون", "38"],
+    14: ["قصير القامة", "لانه قصير", "بسبب قصر قامته"],
+    15: ["اثنا عشر", "12"],
+    16: [
+        "اسأله عن الباب الذي سيختاره الحارس الاخر واختر العكس",
+        "اسأله ماذا سيقول الحارس الاخر واختر الباب الثاني",
+        "اسأل عن اجابة الحارس الاخر واختر عكسها"
+    ],
+    17: ["ستة وثلاثون", "36"],
+    18: ["شمعتين", "شمعتان", "اثنتين", "2"],
+    19: ["ستة وثلاثون", "36"]
+};
+
+// حساب الاختلاف بين كلمتين
+function editDistance(a, b) {
+    let row = Array.from({length: b.length + 1}, (_, i) => i);
+
+    for (let i = 1; i <= a.length; i++) {
+        let next = [i];
+
+        for (let j = 1; j <= b.length; j++) {
+            next[j] = Math.min(
+                next[j - 1] + 1,
+                row[j] + 1,
+                row[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+            );
+        }
+
+        row = next;
+    }
+
+    return row[b.length];
+}
+
+function check() {
+    if (done) return;
+
+    let answer = norm($("answer").value);
+
+    if (!answer) {
+        $("feedback").textContent = "اكتب إجابتك أولاً!";
+        $("feedback").className = "feedback bad";
+        return;
+    }
+
+    let correct = norm(P[cur][3]);
+    let alternatives = (ANSWERS[cur] || []).map(norm);
+    let accepted = [correct, ...alternatives];
+
+    // تطابق مباشر مع إحدى الإجابات المقبولة
+    let isCorrect = accepted.includes(answer);
+
+    // تسامح مع خطأ إملائي بسيط
+    if (!isCorrect && answer.length >= 5) {
+        isCorrect = accepted.some(option => {
+            let limit = option.length >= 10 ? 2 : 1;
+
+            return option.length >= 5 &&
+                editDistance(answer, option) <= limit;
+        });
+    }
+
+    if (isCorrect) {
+        finish(true);
+    } else {
+        $("feedback").textContent =
+            "قريب! جرّب مرة ثانية وفكّر باللغز 🧠";
+        $("feedback").className = "feedback bad";
+    }
+}
+
 function finish(points){if(!done){done=true;if(!d.solved.includes(cur))d.solved.push(cur);d.unlocked=Math.max(d.unlocked,Math.min(20,cur+2));if(points)d.score+=100;save()}$("feedback").textContent=points?"إجابة صحيحة! +100 نقطة 🎉":"تم كشف الإجابة. بدون نقاط لهذه المرحلة.";$("feedback").className="feedback good";$("answer").disabled=true;$("next").style.display="block";$("hint").style.display="none";draw()}
 function hint(){if(done)return;let used=d.hints[cur]||0;if(used>=2){$("hint").textContent="استخدمت التلميحين المتاحين لهذه المرحلة.";$("hint").style.display="block";return}d.score=Math.max(0,d.score-(used===0?20:30));d.hints[cur]=used+1;save();$("cost").textContent=used===0?"(−30)":"(مكتمل)";$("hint").textContent=(used===0?"تلميح 1: ":"تلميح 2: ")+P[cur][4+used];$("hint").style.display="block"}
 function reveal(){if(done)return;$("hint").textContent="الإجابة: "+P[cur][3]+" — "+P[cur][5];$("hint").style.display="block";finish(false)}
