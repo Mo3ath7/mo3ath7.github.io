@@ -1885,3 +1885,103 @@ body::before {
     }
     .mindx-button { justify-content: center; }
 }
+/* PORTFOLIO PROJECT CARD */
+
+.portfolio-card {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 30%, #12351d 0%, transparent 55%),
+        linear-gradient(145deg, #101a13, #07090e 75%);
+    border: 1px solid rgba(63, 185, 80, .25);
+    border-radius: 20px;
+    padding: 25px;
+    transition: .35s ease;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-9px);
+    border-color: #3fb950;
+    box-shadow: 0 15px 45px rgba(63, 185, 80, .15);
+}
+
+.portfolio-glow {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: #39ff14;
+    filter: blur(100px);
+    opacity: .09;
+    top: 20%;
+    left: 30%;
+    pointer-events: none;
+}
+
+.portfolio-content {
+    position: relative;
+    text-align: center;
+    padding: 25px 0;
+}
+
+.portfolio-logo {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 18px;
+    color: #39ff14;
+    filter: drop-shadow(0 0 15px rgba(57,255,20,.5));
+}
+
+.portfolio-logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-content h3 {
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.portfolio-content h3 span {
+    color: #39ff14;
+}
+
+.portfolio-content h4 {
+    color: #3fb950;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.portfolio-content p {
+    color: #a4b3a5;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.portfolio-bottom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.portfolio-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 16px;
+    border: 1px solid rgba(63,185,80,.4);
+    border-radius: 10px;
+    color: #39ff14;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: .3s;
+}
+
+.portfolio-button:hover {
+    background: #39ff14;
+    color: #07090e;
+    box-shadow: 0 0 20px rgba(57,255,20,.25);
+}
