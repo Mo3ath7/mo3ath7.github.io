@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07070c">
+<title>UNKNOWN — Enter the Unknown</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@400;500;700;800&display=swap');
+
+:root {
+  --bg:#07070c;
+  --purple:#a855f7;
+  --green:#39ff9a;
+  --text:#f4f1ff;
+  --muted:#9994aa;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%,#a855f71b,transparent 35%),
+    radial-gradient(circle at 80% 70%,#39ff9a12,transparent 35%);
+  z-index:-1;
+}
+
+header {
+  height:78px;
+  padding:0 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #ffffff12;
+  background:#07070cbb;
+  backdrop-filter:blur(15px);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo {
+  font-family:Orbitron,sans-serif;
+  font-weight:800;
+  letter-spacing:3px;
+  font-size:19px;
+}
+
+.logo span { color:var(--green); }
+
+nav {
+  display:flex;
+  gap:27px;
+}
+
+nav a {
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  transition:.3s;
+}
+
+nav a:hover { color:var(--green); }
+
+.status {
+  font-size:11px;
+  color:var(--green);
+  border:1px solid #39ff9a40;
+  padding:9px 13px;
+  border-radius:30px;
+}
+
+.hero {
+  min-height:660px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:90px 20px;
+  position:relative;
+}
+
+.portal {
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  border:1px solid #a855f788;
+  box-shadow:0 0 35px #a855f733,inset 0 0 35px #a855f722;
+  display:grid;
+  place-items:center;
+  margin-bottom:40px;
+  animation:float 4s ease-in-out infinite;
+  position:relative;
+}
+
+.portal::before,
+.portal::after {
+  content:"";
+  position:absolute;
+  inset:-13px;
+  border:1px solid #39ff9a55;
+  border-radius:50%;
+  animation:spin 12s linear infinite;
+}
+
+.portal::after {
+  inset:-25px;
+  border-color:#a855f744;
+  animation-direction:reverse;
+  animation-duration:18s;
+}
+
+.portal span {
+  font-family:Orbitron,sans-serif;
+  font-size:50px;
+  color:var(--green);
+  text-shadow:0 0 25px var(--green);
+}
+
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+
+@keyframes float {
+  50% { transform:translateY(-12px); }
+}
+
+.tag {
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:11px;
+  letter-spacing:4px;
+  margin-bottom:22px;
+}
+
+h1 {
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(38px,8vw,82px);
+  letter-spacing:5px;
+  margin-bottom:20px;
+}
+
+h1 span {
+  color:var(--purple);
+  text-shadow:0 0 30px #a855f766;
+}
+
+.hero p {
+  color:var(--muted);
+  max-width:540px;
+  line-height:1.9;
+  font-size:15px;
+}
+
+.enter-btn {
+  margin-top:35px;
+  padding:16px 32px;
+  background:linear-gradient(100deg,var(--purple),#6934c9);
+  color:white;
+  border:0;
+  border-radius:9px;
+  font-weight:800;
+  letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:0 0 30px #a855f733;
+  transition:.3s;
+}
+
+.enter-btn:hover {
+  transform:translateY(-4px);
+  box-shadow:0 0 40px #a855f766;
+}
+
+.section {
+  padding:90px 7%;
+}
+
+.section-head {
+  text-align:center;
+  margin-bottom:45px;
+}
+
+.section-head h2 {
+  font-family:Orbitron,sans-serif;
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.section-head p {
+  color:var(--muted);
+  font-size:14px;
+}
+
+.worlds {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.world-card {
+  background:linear-gradient(145deg,#151321,#0b0b12);
+  border:1px solid #ffffff15;
+  border-radius:17px;
+  padding:30px 24px;
+  min-height:240px;
+  transition:.35s;
+  position:relative;
+  overflow:hidden;
+}
+
+.world-card:hover {
+  transform:translateY(-8px);
+  border-color:#a855f788;
+  box-shadow:0 15px 40px #a855f71c;
+}
+
+.world-icon {
+  font-size:35px;
+  margin-bottom:22px;
+}
+
+.world-card h3 {
+  font-family:Orbitron,sans-serif;
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.world-card p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+
+.world-number {
+  position:absolute;
+  top:20px;
+  right:20px;
+  color:#ffffff25;
+  font-family:Orbitron,sans-serif;
+  font-size:12px;
+}
+
+.locked {
+  display:inline-block;
+  margin-top:20px;
+  color:var(--green);
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+footer {
+  text-align:center;
+  padding:35px 15px;
+  color:#777184;
+  border-top:1px solid #ffffff12;
+  font-size:12px;
+}
+
+footer span { color:var(--green); }
+
+@media(max-width:750px) {
+  nav { display:none; }
+  .worlds { grid-template-columns:1fr; }
+  .hero { min-height:600px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">UN<span>KNOWN</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#worlds">Discover</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="status">● SYSTEM ONLINE</div>
+</header>
+
+<main>
+<section class="hero" id="home">
+
+  <div class="portal">
+    <span>?</span>
+  </div>
+
+  <div class="tag">A NEW EXPERIENCE AWAITS</div>
+
+  <h1>ENTER THE <span>UNKNOWN.</span></h1>
+
+  <p>
+    Beyond what you know lies a world full of secrets,
+    challenges and discoveries. Are you ready to explore?
+  </p>
+
+  <button class="enter-btn" onclick="discover()">
+    DISCOVER THE UNKNOWN ↗
+  </button>
+
+</section>
+
+<section class="section" id="worlds">
+
+  <div class="section-head">
+    <div class="tag">// CHOOSE YOUR DESTINATION</div>
+    <h2>Explore The Worlds</h2>
+    <p>Every world holds a different mystery.</p>
+  </div>
+
+  <div class="worlds">
+
+    <div class="world-card">
+      <span class="world-number">01</span>
+      <div class="world-icon">🧩</div>
+      <h3>MYSTERY</h3>
+      <p>Discover hidden clues and solve mysterious puzzles.</p>
+      <span class="locked">COMING SOON</span>
+    </div>
+
+    <div class="world-card">
+      <span class="world-number">02</span>
+      <div class="world-icon">🧠</div>
+      <h3>MIND TEST</h3>
+      <p>Test your focus, logic and problem-solving skills.</p>
+      <span class="locked">COMING SOON</span>
+    </div>
+
+    <div class="world-card">
+      <span class="world-number">03</span>
+      <div class="world-icon">🎮</div>
+      <h3>CHALLENGES</h3>
+      <p>Face new challenges and prove what you can do.</p>
+      <span class="locked">COMING SOON</span>
+    </div>
+
+    <div class="world-card">
+      <span class="world-number">04</span>
+      <div class="world-icon">🔐</div>
+      <h3>SECRET ROOMS</h3>
+      <p>Find secret codes and unlock hidden destinations.</p>
+      <span class="locked">COMING SOON</span>
+    </div>
+
+    <div class="world-card">
+      <span class="world-number">05</span>
+      <div class="world-icon">🌌</div>
+      <h3>EXPLORE</h3>
+      <p>Enter strange digital worlds and discover surprises.</p>
+      <span class="locked">COMING SOON</span>
+    </div>
+
+    <div class="world-card">
+      <span class="world-number">06</span>
+      <div class="world-icon">⚡</div>
+      <h3>DAILY QUEST</h3>
+      <p>Take on a fresh challenge and build your streak.</p>
+      <span class="locked">COMING SOON</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="section-head">
+    <div class="tag">// THE UNKNOWN PROJECT</div>
+    <h2>Nothing Is As It Seems.</h2>
+    <p>A place where curiosity leads the way.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  UNKNOWN © 2026 — <span>ENTER THE UNKNOWN.</span>
+</footer>
+
+<script>
+function discover() {
+  document.getElementById("worlds").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+</script>
+
+</body>
+</html>
