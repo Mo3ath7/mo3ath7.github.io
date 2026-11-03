@@ -21,6 +21,38 @@ h2{font-size:clamp(23px,4vw,32px);margin:18px 0 12px}.question{white-space:pre-l
 .finish{text-align:center;padding:55px 10px}.finish h1{font-size:36px}.finish p{color:var(--muted);line-height:2}
 @media(max-width:700px){header{align-items:flex-start;flex-direction:column}.stats{width:100%}.stat{flex:1}.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:420px){.grid{grid-template-columns:repeat(2,1fr)}.entry{flex-direction:column}.wrap{padding:18px 13px}}
+.difficulty {
+    max-width:720px;
+    margin:0 auto 15px;
+    background:white;
+    border:1px solid var(--line);
+    border-radius:13px;
+    padding:12px 15px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:9px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.difficulty b {
+    color:var(--purple);
+}
+
+.difficulty-track {
+    grid-column:1/-1;
+    height:6px;
+    background:#e8eaf2;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+#difficultyFill {
+    height:100%;
+    width:20%;
+    background:var(--purple);
+    transition:width .3s;
+}
 </style></head>
 <body><main class="wrap">
 <header><div class="brand"><div class="logo">M</div><div><b>MINDX</b><small>فكّر بطريقة مختلفة</small></div></div>
