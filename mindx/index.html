@@ -124,6 +124,7 @@ function editDistance(a, b) {
     return row[b.length];
 }
 
+
 function check() {
     if (done) return;
 
@@ -139,27 +140,29 @@ function check() {
     let alternatives = (ANSWERS[cur] || []).map(norm);
     let accepted = [correct, ...alternatives];
 
-    // تطابق مباشر مع إحدى الإجابات المقبولة
-    let isCorrect = accepted.includes(answer);
-
-    // تسامح مع خطأ إملائي بسيط
-    if (!isCorrect && answer.length >= 5) {
-        isCorrect = accepted.some(option => {
-            let limit = option.length >= 10 ? 2 : 1;
-
-            return option.length >= 5 &&
-                editDistance(answer, option) <= limit;
-        });
+    if (accepted.includes(answer)) {
+        finish(true);
+        return;
     }
 
-    if (isCorrect) {
-        finish(true);
+    // فحص مدى قرب الإجابة من الحل
+    let closest = Math.min(
+        ...accepted.map(option => editDistance(answer, option))
+    );
+
+    let difference = Math.abs(answer.length - correct.length);
+
+    if (closest <= 2 && difference <= 3) {
+        $("feedback").textContent =
+            "قريب جداً من الإجابة! راجع كتابتك وحاول مرة ثانية 🎯";
+        $("feedback").className = "feedback bad";
     } else {
         $("feedback").textContent =
-            "قريب! جرّب مرة ثانية وفكّر باللغز 🧠";
+            "مش هيك... جرّب مرة ثانية وفكّر باللغز 🧠";
         $("feedback").className = "feedback bad";
     }
 }
+
 
 function finish(points){if(!done){done=true;if(!d.solved.includes(cur))d.solved.push(cur);d.unlocked=Math.max(d.unlocked,Math.min(20,cur+2));if(points)d.score+=100;save()}$("feedback").textContent=points?"إجابة صحيحة! +100 نقطة 🎉":"تم كشف الإجابة. بدون نقاط لهذه المرحلة.";$("feedback").className="feedback good";$("answer").disabled=true;$("next").style.display="block";$("hint").style.display="none";draw()}
 function hint(){if(done)return;let used=d.hints[cur]||0;if(used>=2){$("hint").textContent="استخدمت التلميحين المتاحين لهذه المرحلة.";$("hint").style.display="block";return}d.score=Math.max(0,d.score-(used===0?20:30));d.hints[cur]=used+1;save();$("cost").textContent=used===0?"(−30)":"(مكتمل)";$("hint").textContent=(used===0?"تلميح 1: ":"تلميح 2: ")+P[cur][4+used];$("hint").style.display="block"}
