@@ -722,7 +722,7 @@ function checkSecretAnswer() {
 
     localStorage.setItem("unknownXP", secretXP);
     localStorage.setItem("unknownRoom1", "true");
-
+updatePlayerStats();
     feedback.textContent = "";
     document.getElementById("secretReward").style.display = "block";
   } else {
@@ -733,7 +733,22 @@ function checkSecretAnswer() {
 document.getElementById("secretAnswer").addEventListener("keydown", function(e) {
   if (e.key === "Enter") checkSecretAnswer();
 });
+function updatePlayerStats() {
+  const xp = Number(localStorage.getItem("unknownXP") || 0);
 
+  const level = Math.floor(xp / 100) + 1;
+  const progress = xp % 100;
+  const remaining = 100 - progress;
+
+  document.getElementById("playerXP").textContent = xp;
+  document.getElementById("playerLevel").textContent = level;
+  document.getElementById("xpFill").style.width = progress + "%";
+
+  document.getElementById("xpNext").textContent =
+    remaining + " XP TO NEXT LEVEL";
+}
+
+updatePlayerStats();
 </script>
 
 </body>
