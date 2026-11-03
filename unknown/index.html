@@ -59,10 +59,19 @@ header {
 }
 
 .logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
   font-family:Orbitron,sans-serif;
   font-weight:800;
   letter-spacing:3px;
   font-size:19px;
+}
+
+.logo img {
+  width:42px;
+  height:42px;
+  object-fit:contain;
 }
 
 .logo span { color:var(--green); }
@@ -521,7 +530,10 @@ footer span { color:var(--green); }
 <body>
 
 <header>
-  <div class="logo">UN<span>KNOWN</span></div>
+  <div class="logo">
+  <img src="file_0000000030e882109c790d7488bd5a13.png" alt="UNKNOWN Logo">
+  <span>UNKNOWN</span>
+</div>
   <nav>
     <a href="#home">Home</a>
     <a href="#worlds">Discover</a>
