@@ -661,51 +661,7 @@ function checkSecretAnswer() {
 document.getElementById("secretAnswer").addEventListener("keydown", function(e) {
   if (e.key === "Enter") checkSecretAnswer();
 });
-let secretXP = Number(localStorage.getItem("unknownXP") || 0);
-let roomUnlocked = localStorage.getItem("unknownRoom1") === "true";
 
-function openSecretRoom() {
-  document.getElementById("secretRoom").style.display = "flex";
-
-  if (roomUnlocked) {
-    document.getElementById("secretReward").style.display = "block";
-    document.getElementById("secretFeedback").textContent =
-      "You have already unlocked this room.";
-  }
-}
-
-function closeSecretRoom() {
-  document.getElementById("secretRoom").style.display = "none";
-}
-
-function checkSecretAnswer() {
-  if (roomUnlocked) return;
-
-  const answer = document.getElementById("secretAnswer").value.trim().toLowerCase();
-  const feedback = document.getElementById("secretFeedback");
-
-  if (!answer) {
-    feedback.textContent = "Enter your answer first.";
-    return;
-  }
-
-  if (answer === "keyboard" || answer === "لوحة المفاتيح") {
-    roomUnlocked = true;
-    secretXP += 100;
-
-    localStorage.setItem("unknownXP", secretXP);
-    localStorage.setItem("unknownRoom1", "true");
-
-    feedback.textContent = "";
-    document.getElementById("secretReward").style.display = "block";
-  } else {
-    feedback.textContent = "ACCESS DENIED — Try again.";
-  }
-}
-
-document.getElementById("secretAnswer").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") checkSecretAnswer();
-});
 </script>
 
 </body>
