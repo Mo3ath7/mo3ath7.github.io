@@ -455,6 +455,66 @@ footer span { color:var(--green); }
 }
 #secretReward h3,#secretReward span {color:#39ff9a;}
 #secretReward p {color:#aaa3ba;margin:10px 0;}
+.player-stats {
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.level-box {
+  border:1px solid #a855f766;
+  color:var(--purple);
+  padding:10px 13px;
+  border-radius:9px;
+  font-family:Orbitron,sans-serif;
+  font-size:11px;
+}
+
+.level-box span {
+  color:var(--green);
+  font-size:15px;
+}
+
+.xp-box {
+  min-width:125px;
+  font-size:11px;
+  color:var(--green);
+}
+
+.xp-track {
+  height:5px;
+  background:#ffffff15;
+  border-radius:10px;
+  margin:7px 0 5px;
+  overflow:hidden;
+}
+
+.xp-fill {
+  width:0%;
+  height:100%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+  transition:width .5s;
+}
+
+.xp-box small {
+  color:var(--muted);
+  font-size:9px;
+}
+
+@media(max-width:750px) {
+  header {
+    padding:0 4%;
+  }
+
+  .player-stats {
+    gap:8px;
+  }
+
+  .xp-box {
+    min-width:95px;
+  }
+}
 </style>
 </head>
 
@@ -467,7 +527,19 @@ footer span { color:var(--green); }
     <a href="#worlds">Discover</a>
     <a href="#about">About</a>
   </nav>
-  <div class="status">● SYSTEM ONLINE</div>
+  <div class="player-stats">
+  <div class="level-box">
+    LEVEL <span id="playerLevel">1</span>
+  </div>
+
+  <div class="xp-box">
+    <span>⚡ <b id="playerXP">0</b> XP</span>
+    <div class="xp-track">
+      <div class="xp-fill" id="xpFill"></div>
+    </div>
+    <small id="xpNext">100 XP TO NEXT LEVEL</small>
+  </div>
+</div>
 </header>
 
 <main>
